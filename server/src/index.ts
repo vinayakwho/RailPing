@@ -13,7 +13,12 @@ import alertRoutes from './routes/alertRoutes';
 import userRoutes from './routes/userRoutes';
 
 app.use(cors({
-    origin: '*', // Allow all origins for now to fix the issue
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        // Allow all origins (reflect the request origin)
+        return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
