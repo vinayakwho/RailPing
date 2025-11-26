@@ -12,7 +12,12 @@ import authRoutes from './routes/authRoutes';
 import alertRoutes from './routes/alertRoutes';
 import userRoutes from './routes/userRoutes';
 
-app.use(cors());
+app.use(cors({
+    origin: '*', // Allow all origins for now to fix the issue
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(helmet());
 app.use(express.json());
 
