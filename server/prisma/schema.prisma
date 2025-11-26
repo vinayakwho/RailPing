@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  googleId    String   @unique
+  email       String   @unique
+  name        String?
+  phoneNumber String?
+  createdAt   DateTime @default(now())
+  alerts      TrainAlert[]
+}
+
+model TrainAlert {
+  id                    Int      @id @default(autoincrement())
+  userId                Int
+  user                  User     @relation(fields: [userId], references: [id])
+  trainNumber           String
+  trainName             String?
+  journeyDate           String   // Format: ddMMyyyy
+  boardingStationCode   String?
+  boardingStationName   String?
+  destinationStationCode String?
+  destinationStationName String?
+  alertStationCode      String
+  alertStationName      String
+  alertType             String   // "boarding" | "destination" | "both"
+  isActive              Boolean  @default(true)
+  lastTriggeredAt       DateTime?
+  createdAt             DateTime @default(now())
+}
