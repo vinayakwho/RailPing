@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaTrain, FaSignOutAlt, FaPlus } from 'react-icons/fa';
+import { FaSignOutAlt, FaPlus } from 'react-icons/fa';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user, logout, isAuthenticated } = useAuth();
